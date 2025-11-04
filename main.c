@@ -1,28 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/29 19:40:17 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/04 13:20:51 by souhsain         ###   ########.fr       */
+/*   Created: 2025/11/04 13:08:05 by souhsain          #+#    #+#             */
+/*   Updated: 2025/11/04 18:32:47 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-#define GET_NEXT_LINE_H
-#define BUFFER_SIZE 33
-
-#include <unistd.h>
-#include <stddef.h>
+#include "get_next_line.h"
+#include <fcntl.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
-char	*get_next_line(int fd);
-char	*ft_strjoin(const char *s1, const char *s2);
-size_t	ft_strlcat(char *dest, const char *src, size_t size);
-size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
+int main()
+{
+    int fd = open("tst.txt", O_RDONLY);
+    if (fd < 0)
+    {
+        perror("Error opening file");
+        return 1;
+    }
 
-#endif
+    char *line;
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        printf("%s", line);
+    }
+
+    close(fd);
+    return 0;
+}
