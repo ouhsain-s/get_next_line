@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:40:17 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/05 14:31:50 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/06 19:48:59 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 #include <unistd.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 char	*get_next_line(int fd);
+
 char	*ft_strjoin(const char *s1, const char *s2);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t destsize);

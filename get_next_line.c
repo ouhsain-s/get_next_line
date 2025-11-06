@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:25:07 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/06 13:25:10 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/06 20:38:31 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,16 @@ char	*get_currect_line(char **line)
 	old_line = *line;
 	while ((*line)[count] != '\n' && (*line)[count] != '\0')
 		count++;
+	if ((*line)[count + 1] == '\0')
+		*line = NULL;
+	else
+		*line = ft_strjoin(ft_strchr(*line, '\n') + 1, "");
 	currect_line = malloc(count + 2);
 	if (!currect_line)
 		return (NULL);
 	currect_line[count + 1] = '\0';
 	while (count-- >= 0)
-		currect_line[count] = (*line)[count];
-	*line = ft_strjoin("", ft_strchr(*line, '\n') + 1);
+		currect_line[count + 1] = (old_line)[count + 1];
 	free(old_line);
 	return (currect_line);
 }
@@ -38,16 +41,17 @@ void    concatenate_parts(char **firstpar, char *buf)
 	
 	if (!(*firstpar))
 	{
-		*firstpar = ft_strjoin("", buf);
+		*firstpar = ft_strjoin(buf, "");
 		return ;
 	}
 	old_parts = *firstpar;
 	*firstpar = ft_strjoin(*firstpar, buf);
 	free(old_parts);
 }
-char    *get_nex_line(int fd)
+char    *get_next_line(int fd)
 {
 	static char *parts_line;
+	char	*tmp;
 	char *buf;
 	int sizebites;
 
@@ -60,12 +64,13 @@ char    *get_nex_line(int fd)
 		if (sizebites <= 0)
 		{
 			free(buf);
+			tmp = parts_line, parts_line = 	NULL;
 			if (sizebites == 0)
-				return(parts_line);
+				return(tmp);
 			free(parts_line);
 			return (NULL);
 		}
-		buf[BUFFER_SIZE] = '\0';
+		buf[sizebites] = '\0';
 		concatenate_parts(&parts_line, buf);
 	}
 	free(buf);
