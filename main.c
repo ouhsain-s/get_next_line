@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 13:08:05 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/04 22:48:48 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/05 11:18:10 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,14 @@ int main()
     }
 
     char *line;
-    // line = get_next_line(fd);
-    // printf("%s", line);
-    while ((line = get_next_line(fd)) != NULL)
-    {
-        printf("%s", line);
-    }
+    line = get_next_line(fd);
+    printf("%s*", line);
+     line = get_next_line(fd);
+    printf("%s*", line);
+    // while ((line = get_next_line(fd)) != NULL)
+    // {
+    //     printf("%s", line);
+    // }
 
     close(fd);
     return 0;

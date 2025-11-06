@@ -6,12 +6,13 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:40:17 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/04 21:19:24 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/05 14:31:50 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 #define GET_NEXT_LINE_H
+
 #define BUFFER_SIZE 5
 
 #include <unistd.h>
