@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:39 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/07 13:25:34 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/07 16:17:02 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,24 @@ char	**realloc_parts(char **parts_lines, int fd)
 	char	**new_array;
 	int		i;
 	int		num_old_arr;
-	
-	num_old_arr = (long)(int)parts_lines[0];
-	if (parts_lines != 	NULL && num_old_arr >= fd)
+	if (parts_lines != NULL)
+		num_old_arr = (int)(long)parts_lines[0];
+	else
+		num_old_arr = -1;
+	if (num_old_arr >= fd)
 		return parts_lines;
-	new_array = malloc(fd + 1 * sizeof(char *));
+	new_array = malloc((fd + 1) * sizeof(char *));
 	if (!new_array)
 		return (NULL);
 	new_array[0] = (char *)(long)fd;
 	i = 1;
 	while (i <= num_old_arr)
+	{
 		new_array[i] = parts_lines[i];
+		i++;
+	}
+	while (i++ <= fd)
+		new_array[i - 1] = NULL;
 	free(parts_lines);
 	return (new_array);
 }
@@ -74,7 +81,7 @@ char    *get_next_line_bonus(int fd)
 	char *buf;
 	int sizebites;
 
-	if (!(buf = malloc(BUFFER_SIZE + 1)) || !(parts = realloc_parts(parts)))
+	if (!(buf = malloc(BUFFER_SIZE + 1)) || !(parts = realloc_parts(parts, fd)))
 		return(NULL);
 	while (!(ft_strchr(parts[fd], '\n')))
 	{
