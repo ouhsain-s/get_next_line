@@ -40,7 +40,7 @@ int main(void)
         {
             line2 = get_next_line_bonus(fd2);
             if (line2)
-                printf("fd2: %s", line2);
+                printf("fd2: %s*", line2);
             else
                 done2 = 1;
             if (line2 && line2[0] != '\0' && line2[ft_strlen(line2)-1] != '\n')

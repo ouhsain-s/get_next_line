@@ -6,14 +6,16 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:52 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/07 15:40:10 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/08 18:18:09 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 #define GET_NEXT_LINE_H
 
+#ifndef BUFFER_SIZE
 #define BUFFER_SIZE 5
+#endif
 
 #include <unistd.h>
 #include <stddef.h>

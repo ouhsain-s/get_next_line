@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:25:07 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/06 20:38:31 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/08 18:14:38 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,12 @@ char	*get_currect_line(char **line)
 	old_line = *line;
 	while ((*line)[count] != '\n' && (*line)[count] != '\0')
 		count++;
-	if ((*line)[count + 1] == '\0')
+	if ((*line)[count] == '\0' || (*line)[count + 1] == '\0')
 		*line = NULL;
 	else
 		*line = ft_strjoin(ft_strchr(*line, '\n') + 1, "");
+	if ((*line)[count] == '\0')
+		count -= 1;
 	currect_line = malloc(count + 2);
 	if (!currect_line)
 		return (NULL);
@@ -61,15 +63,10 @@ char    *get_next_line(int fd)
 	while (!(ft_strchr(parts_line, '\n')))
 	{
 		sizebites = read(fd, buf, BUFFER_SIZE);
-		if (sizebites <= 0)
-		{
-			free(buf);
-			tmp = parts_line, parts_line = 	NULL;
-			if (sizebites == 0)
-				return(tmp);
-			free(parts_line);
-			return (NULL);
-		}
+		if (sizebites == 0)
+			return(free(buf), tmp = parts_line, parts_line = NULL, tmp);
+		if (sizebites < 0)
+			return(free(buf), free(parts_line), parts_line = NULL, NULL);
 		buf[sizebites] = '\0';
 		concatenate_parts(&parts_line, buf);
 	}

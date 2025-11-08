@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:39 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/07 16:17:02 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/08 18:15:24 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ char	**realloc_parts(char **parts_lines, int fd)
 	}
 	while (i++ <= fd)
 		new_array[i - 1] = NULL;
-	free(parts_lines);
+	if (parts_lines != NULL)
+		free(parts_lines);
 	return (new_array);
 }
 char	*get_currect_line(char **line)
@@ -48,10 +49,12 @@ char	*get_currect_line(char **line)
 	old_line = *line;
 	while ((*line)[count] != '\n' && (*line)[count] != '\0')
 		count++;
-	if ((*line)[count + 1] == '\0')
+	if ((*line)[count] == '\0' || (*line)[count + 1] == '\0')
 		*line = NULL;
 	else
 		*line = ft_strjoin(ft_strchr(*line, '\n') + 1, "");
+	if ((*line)[count] == '\0')
+		count -= 1;
 	currect_line = malloc(count + 2);
 	if (!currect_line)
 		return (NULL);
@@ -81,20 +84,17 @@ char    *get_next_line_bonus(int fd)
 	char *buf;
 	int sizebites;
 
-	if (!(buf = malloc(BUFFER_SIZE + 1)) || !(parts = realloc_parts(parts, fd)))
+	if (!(buf = malloc(BUFFER_SIZE + 1)))
 		return(NULL);
+	if (!(parts = realloc_parts(parts, fd)))
+		return(free(buf), NULL);
 	while (!(ft_strchr(parts[fd], '\n')))
 	{
 		sizebites = read(fd, buf, BUFFER_SIZE);
-		if (sizebites <= 0)
-		{
-			free(buf);
-			tmp = parts[fd], parts[fd] = 	NULL;
-			if (sizebites == 0)
-				return(tmp);
-			free(parts[fd]);
-			return (NULL);
-		}
+		if (sizebites == 0)
+			return(free(buf), tmp = parts[fd], parts[fd] = NULL, tmp);
+        if (sizebites < 0)
+			return (free(buf),free(parts[fd]), parts[fd] = NULL, NULL);
 		buf[sizebites] = '\0';
 		concatenate_parts(parts + fd, buf);
 	}
