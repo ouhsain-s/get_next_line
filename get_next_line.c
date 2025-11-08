@@ -6,13 +6,13 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:25:07 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/08 18:14:38 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/08 23:15:14 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_currect_line(char **line)
+static char	*get_currect_line(char **line)
 {
 	char	*currect_line;
 	char	*old_line;
@@ -37,7 +37,7 @@ char	*get_currect_line(char **line)
 	free(old_line);
 	return (currect_line);
 }
-void    concatenate_parts(char **firstpar, char *buf)
+static void    concatenate_parts(char **firstpar, char *buf)
 {
 	char    *old_parts;
 	
@@ -58,7 +58,7 @@ char    *get_next_line(int fd)
 	int sizebites;
 
 	buf = malloc(BUFFER_SIZE + 1);
-	if (!buf)
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX ||!buf)
 		return(NULL);
 	while (!(ft_strchr(parts_line, '\n')))
 	{

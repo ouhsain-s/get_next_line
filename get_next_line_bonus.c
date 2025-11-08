@@ -6,13 +6,13 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:39 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/08 18:15:24 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/08 23:14:53 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	**realloc_parts(char **parts_lines, int fd)
+static char	**realloc_parts(char **parts_lines, int fd)
 {
 	char	**new_array;
 	int		i;
@@ -39,7 +39,7 @@ char	**realloc_parts(char **parts_lines, int fd)
 		free(parts_lines);
 	return (new_array);
 }
-char	*get_currect_line(char **line)
+static char	*get_currect_line(char **line)
 {
 	char	*currect_line;
 	char	*old_line;
@@ -64,7 +64,7 @@ char	*get_currect_line(char **line)
 	free(old_line);
 	return (currect_line);
 }
-void    concatenate_parts(char **firstpar, char *buf)
+static void    concatenate_parts(char **firstpar, char *buf)
 {
 	char    *old_parts;
 	
@@ -84,7 +84,7 @@ char    *get_next_line_bonus(int fd)
 	char *buf;
 	int sizebites;
 
-	if (!(buf = malloc(BUFFER_SIZE + 1)))
+	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX || !(buf = malloc(BUFFER_SIZE + 1)))
 		return(NULL);
 	if (!(parts = realloc_parts(parts, fd)))
 		return(free(buf), NULL);
@@ -98,7 +98,6 @@ char    *get_next_line_bonus(int fd)
 		buf[sizebites] = '\0';
 		concatenate_parts(parts + fd, buf);
 	}
-	free(buf);
-	return(get_currect_line(parts + fd));
+	return(	free(buf), get_currect_line(parts + fd));
 }
 
