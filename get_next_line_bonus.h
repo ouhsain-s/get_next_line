@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:52 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/09 11:48:39 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/09 12:31:42 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 #endif
 
 #if BUFFER_SIZE > INT_MAX
-    #undef BUFFER_SIZE
-    #define BUFFER_SIZE -1
+#undef BUFFER_SIZE
+#define BUFFER_SIZE -1
 #endif
 
 #include <unistd.h>

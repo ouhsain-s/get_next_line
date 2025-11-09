@@ -6,25 +6,29 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:40:17 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/08 23:14:28 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/09 12:33:24 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 #define GET_NEXT_LINE_H
 
+#ifndef INT_MAX
+#define INT_MAX 2147483647
+#endif
+
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 5
 #endif
 
-#ifndef INT_MAX
-#define INT_MAX 2147483647
+#if BUFFER_SIZE > INT_MAX
+#undef BUFFER_SIZE
+#define BUFFER_SIZE -1
 #endif
 
 #include <unistd.h>
 #include <stddef.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(const char *s1, const char *s2);
