@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:25:07 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/09 19:29:17 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/09 19:48:05 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static char	*get_currect_line(char **line)
 	while (count-- >= 0)
 		currect_line[count + 1] = (old_line)[count + 1];
 	free(old_line);
+	old_line = NULL;
 	return (currect_line);
 }
 static void    concatenate_parts(char **firstpar, char *buf)
@@ -47,6 +48,7 @@ static void    concatenate_parts(char **firstpar, char *buf)
 	old_parts = *firstpar;
 	*firstpar = ft_strjoin(*firstpar, buf);
 	free(old_parts);
+	old_parts NULL;
 }
 char    *get_next_line(int fd)
 {
@@ -58,7 +60,7 @@ char    *get_next_line(int fd)
 	buf = malloc(BUFFER_SIZE + 1);
 	if (fd < 0 || BUFFER_SIZE <= 0 ||!buf)
 		return(free(parts_line),parts_line = NULL, NULL);
-	while (!parts_line ||!(ft_strchr(parts_line, '\n')))
+	while (!(ft_strchr(parts_line, '\n')))
 	{
 		sizebites = read(fd, buf, BUFFER_SIZE);
 		if (sizebites == 0)
