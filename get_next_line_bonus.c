@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:39 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/09 13:31:57 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/09 19:08:02 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char    *get_next_line_bonus(int fd)
 	int sizebites;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || !(buf = malloc(BUFFER_SIZE + 1)))
-		return(free(parts),parts = NULL, NULL);
+		return(free(parts[fd]),parts[fd] = NULL, NULL);
 	if (!(parts = realloc_parts(parts, fd)))
 		return(free(buf), NULL);
 	while (!(ft_strchr(parts[fd], '\n')))
