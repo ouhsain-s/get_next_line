@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:39 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/08 23:36:57 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/09 11:15:33 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ static char	*get_currect_line(char **line)
 		*line = NULL;
 	else
 		*line = ft_strjoin(ft_strchr(*line, '\n') + 1, "");
-	if ((*line)[count] == '\0')
-		count -= 1;
+	// if ((*line)[count] == '\0')
+		// count -= 1;
 	currect_line = malloc(count + 2);
 	if (!currect_line)
 		return (NULL);
