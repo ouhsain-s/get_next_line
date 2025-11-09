@@ -6,19 +6,26 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:52 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/08 23:14:08 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/09 11:48:39 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 #define GET_NEXT_LINE_H
 
+
+#ifndef INT_MAX
+#define INT_MAX 2147483647
+#endif
+
+
 #ifndef BUFFER_SIZE
 #define BUFFER_SIZE 5
 #endif
 
-#ifndef INT_MAX
-#define INT_MAX 2147483647
+#if BUFFER_SIZE > INT_MAX
+    #undef BUFFER_SIZE
+    #define BUFFER_SIZE -1
 #endif
 
 #include <unistd.h>

@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:25:07 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/08 23:15:14 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/09 11:37:01 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static char	*get_currect_line(char **line)
 		*line = NULL;
 	else
 		*line = ft_strjoin(ft_strchr(*line, '\n') + 1, "");
-	if ((*line)[count] == '\0')
-		count -= 1;
 	currect_line = malloc(count + 2);
 	if (!currect_line)
 		return (NULL);
@@ -58,7 +56,7 @@ char    *get_next_line(int fd)
 	int sizebites;
 
 	buf = malloc(BUFFER_SIZE + 1);
-	if (fd < 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= INT_MAX ||!buf)
+	if (fd < 0 || BUFFER_SIZE <= 0 ||  (long)(long) BUFFER_SIZE >= INT_MAX ||!buf)
 		return(NULL);
 	while (!(ft_strchr(parts_line, '\n')))
 	{
