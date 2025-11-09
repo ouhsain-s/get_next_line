@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 13:25:07 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/09 12:43:04 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/09 13:20:51 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char    *get_next_line(int fd)
 
 	buf = malloc(BUFFER_SIZE + 1);
 	if (fd < 0 || BUFFER_SIZE <= 0 ||!buf)
-		return(NULL);
+		return(free(parts_line),parts_line = NULL, NULL);
 	while (!(ft_strchr(parts_line, '\n')))
 	{
 		sizebites = read(fd, buf, BUFFER_SIZE);
