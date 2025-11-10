@@ -1,72 +1,87 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/10 10:39:02 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/10 15:00:32 by souhsain         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <stdio.h>
+#include <stdlib.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include "get_next_line_bonus.h"
-// #include "get_next_line.h"
 
-int main(int argc, char **argv)
+static void	print_colored(const char *prefix, const char *text, int fd, int line_num)
 {
-	int count;
-	
-	if (argc < 2)
-		return 1;
-	
-	int *fds = malloc(sizeof(int) * argc - 1);
-	char *line;
+	printf("\033[1;36m[FD %d | Line %02d]\033[0m %s", fd, line_num, text);
+	if (text[0] && text[ft_strlen(text) - 1] != '\n')
+		printf("\n");
+}
 
-	count = 0;
-	while (count < argc - 1)
+int	main(int argc, char **argv)
+{
+	int		*fds;
+	char	*line;
+	int		*line_count;
+	int		active_fds;
+	int		i;
+	int		end;
+
+	if (argc < 2)
 	{
-		fds[count] = open(argv[count + 1], O_RDONLY);
-		count++;
+		fprintf(stderr, "Usage: %s file1 file2 ...\n", argv[0]);
+		return (1);
 	}
-	
-	// count = 0;
-	// while (count < argc - 1)
-	// {
-	//     while (line = get_next_line(fds[count]))
-	//         printf("%s/*", line);
-	//     count++;
-	// }
-	
-	int c_fd = 0;
-	int is_all_null;
-	
-	while (is_all_null == 0)
+
+	fds = malloc(sizeof(int) * (argc - 1));
+	line_count = malloc(sizeof(int) * (argc - 1));
+	if (!fds || !line_count)
+		return (perror("malloc failed"), free(fds), free(line_count), 1);
+
+	for (i = 0; i < argc - 1; i++)
 	{
-		is_all_null = 1;
-		c_fd = 0;
-		while (c_fd < argc - 1)
+		fds[i] = open(argv[i + 1], O_RDONLY);
+		if (fds[i] < 0)
 		{
-			line = get_next_line_bonus(fds[c_fd]);
+			perror(argv[i + 1]);
+			line_count[i] = -1;
+		}
+		else
+			line_count[i] = 0;
+	}
+
+	active_fds = argc - 1;
+	end = 0;
+
+	printf("\n=== STARTING ADVANCED TEST ===\n\n");
+
+	while (!end)
+	{
+		end = 1;
+		for (i = 0; i < argc - 1; i++)
+		{
+			if (fds[i] < 0)
+				continue;
+
+			line = get_next_line_bonus(fds[i]);
 			if (line)
 			{
-				is_all_null = 0;
-				printf("%s/*", line);
+				end = 0;
+				line_count[i]++;
+				print_colored("FD", line, fds[i], line_count[i]);
+				free(line);
 			}
-			c_fd++;
 		}
 	}
 
-	
-	
-	 
-	//  while (line =  get_next_line(fds[0]))
-	//     printf("%s/*", line);
-		
-	// fds[1] = open(argv[2], O_RDONLY);
-	
-	//  while (line =  get_next_line(fds[1]))
-	//     printf("%s/*", line);
+	printf("\n\n=== END OF FILES ===\n");
+	for (i = 0; i < argc - 1; i++)
+	{
+		if (fds[i] >= 0)
+		{
+			close(fds[i]);
+			printf("Closed FD %d after %d lines.\n", fds[i], line_count[i]);
+		}
+	}
+
+	free(fds);
+	free(line_count);
+
+	printf("\n✅ Test finished. Run with Valgrind to check leaks:\n");
+	printf("   valgrind --leak-check=full ./a.out file1 file2 ...\n\n");
+
+	return (0);
 }
