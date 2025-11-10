@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 14:42:21 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/08 20:49:35 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/10 20:09:23 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)s);
 	return (NULL);
 }
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	count;
@@ -37,6 +38,7 @@ size_t	ft_strlen(const char *s)
 		count++;
 	return (count);
 }
+
 size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
 {
 	size_t	srclen;
@@ -54,6 +56,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
 	dest[count] = '\0';
 	return (srclen);
 }
+
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
 	size_t	destlen;
@@ -75,6 +78,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	dest[destlen + count] = '\0';
 	return (destlen + srclen);
 }
+
 char	*ft_strjoin(const char *s1, const char *s2)
 {
 	size_t	s1len;

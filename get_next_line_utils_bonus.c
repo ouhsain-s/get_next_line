@@ -6,13 +6,13 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:32:11 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/08 20:48:56 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/10 20:10:05 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
- char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	if (!s)
 		return (NULL);
@@ -26,6 +26,7 @@
 		return ((char *)s);
 	return (NULL);
 }
+
 size_t	ft_strlen(const char *s)
 {
 	size_t	count;
@@ -37,6 +38,7 @@ size_t	ft_strlen(const char *s)
 		count++;
 	return (count);
 }
+
 size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
 {
 	size_t	srclen;
@@ -54,6 +56,7 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t destsize)
 	dest[count] = '\0';
 	return (srclen);
 }
+
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
 	size_t	destlen;
@@ -75,6 +78,7 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	dest[destlen + count] = '\0';
 	return (destlen + srclen);
 }
+
 char	*ft_strjoin(const char *s1, const char *s2)
 {
 	size_t	s1len;

@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:39 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/10 17:04:28 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/10 20:29:26 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,13 @@ static char	**realloc_parts(char **parts_lines, int fd)
 	char	**new_array;
 	int		i;
 	int		num_old_arr;
+
 	if (parts_lines != NULL)
 		num_old_arr = (int)(long)parts_lines[0];
 	else
 		num_old_arr = -1;
 	if (num_old_arr >= fd)
-		return parts_lines;
+		return (parts_lines);
 	new_array = malloc((fd + 1) * sizeof(char *));
 	if (!new_array)
 		return (NULL);
@@ -33,20 +34,23 @@ static char	**realloc_parts(char **parts_lines, int fd)
 		new_array[i] = parts_lines[i];
 		i++;
 	}
-	while (i++ <= fd)
-		new_array[i - 1] = NULL;
+	while (i <= fd)
+		new_array[i++] = NULL;
 	if (parts_lines != NULL)
 		free(parts_lines);
 	return (new_array);
 }
+
 static char	*get_currect_line(char **line)
 {
 	char	*currect_line;
 	char	*old_line;
 	int		count;
-	
-	count = 0;
+
+	if (!line || !*line)
+		return (NULL);
 	old_line = *line;
+	count = 0;
 	while ((*line)[count] != '\n' && (*line)[count] != '\0')
 		count++;
 	if ((*line)[count] == '\0' || (*line)[count + 1] == '\0')
@@ -57,15 +61,21 @@ static char	*get_currect_line(char **line)
 	if (!currect_line)
 		return (NULL);
 	currect_line[count + 1] = '\0';
-	while (count-- >= 0)
-		currect_line[count + 1] = (old_line)[count + 1];
+	while (count >= 0)
+	{
+		currect_line[count + 1] = old_line[count + 1];
+		count--;
+	}
 	free(old_line);
 	return (currect_line);
 }
-static void    concatenate_parts(char **firstpar, char *buf)
+
+static void	concatenate_parts(char **firstpar, char *buf)
 {
-	char    *old_parts;
-	
+	char	*old_parts;
+
+	if (!buf)
+		return ;
 	if (!(*firstpar))
 	{
 		*firstpar = ft_strjoin(buf, "");
@@ -75,29 +85,31 @@ static void    concatenate_parts(char **firstpar, char *buf)
 	*firstpar = ft_strjoin(*firstpar, buf);
 	free(old_parts);
 }
-char    *get_next_line_bonus(int fd)
+
+char	*get_next_line_bonus(int fd)
 {
-	static char **parts;
-	char	*tmp;
-	char *buf;
-	int sizebites;
+	static char	**parts;
+	char		*buf;
+	char		*tmp;
+	int			sizebites;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return(NULL);
-	if(!(buf = malloc(BUFFER_SIZE + 1)))
-		return(NULL);
-	if (!(parts = realloc_parts(parts, fd)))
-		return(free(buf), NULL);
+		return (NULL);
+	buf = malloc(BUFFER_SIZE + 1);
+	if (!buf)
+		return (NULL);
+	parts = realloc_parts(parts, fd);
+	if (!parts)
+		return (free(buf), NULL);
 	while (!(ft_strchr(parts[fd], '\n')))
 	{
 		sizebites = read(fd, buf, BUFFER_SIZE);
 		if (sizebites == 0)
-			return(free(buf), tmp = parts[fd], parts[fd] = NULL, tmp);
-        if (sizebites < 0)
-			return (free(buf),free(parts[fd]), parts[fd] = NULL, NULL);
+			return (free(buf), tmp = parts[fd], parts[fd] = NULL, tmp);
+		if (sizebites < 0)
+			return (free(buf), free(parts[fd]), parts[fd] = NULL, NULL);
 		buf[sizebites] = '\0';
 		concatenate_parts(parts + fd, buf);
 	}
-	return(	free(buf), get_currect_line(parts + fd));
+	return (free(buf), get_currect_line(parts + fd));
 }
-
