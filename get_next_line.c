@@ -6,9 +6,11 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 20:08:28 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/10 20:08:40 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/16 13:00:13 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "get_next_line.h"
 
 static char	*get_currect_line(char **line)
 {
@@ -39,19 +41,19 @@ static char	*get_currect_line(char **line)
 	return (currect_line);
 }
 
-static void	concatenate_parts(char **firstpar, char *buf)
+static void	concatenate_parts(char **firstpart, char *buf)
 {
 	char	*old_parts;
 
 	if (!buf)
 		return ;
-	if (!(*firstpar))
+	if (!(*firstpart))
 	{
-		*firstpar = ft_strjoin(buf, "");
+		*firstpart = ft_strjoin(buf, "");
 		return ;
 	}
-	old_parts = *firstpar;
-	*firstpar = ft_strjoin(*firstpar, buf);
+	old_parts = *firstpart;
+	*firstpart = ft_strjoin(*firstpart, buf);
 	free(old_parts);
 }
 
