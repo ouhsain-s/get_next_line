@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 20:08:28 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/16 13:00:13 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/17 09:55:49 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*get_next_line(int fd)
 	static char	*parts_line;
 	char		*buf;
 	int			sizebites;
+	char		*tmp;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -72,7 +73,10 @@ char	*get_next_line(int fd)
 	{
 		sizebites = read(fd, buf, BUFFER_SIZE);
 		if (sizebites == 0)
-			return (free(buf), buf = NULL, parts_line);
+		{
+			tmp = parts_line;
+			return (free(buf), buf = NULL, parts_line = NULL, tmp);
+		}
 		if (sizebites < 0)
 			return (free(buf), free(parts_line), parts_line = NULL, NULL);
 		buf[sizebites] = '\0';
