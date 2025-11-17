@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:39 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/10 20:29:26 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:32:23 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char	*get_currect_line(char **line)
 	currect_line[count + 1] = '\0';
 	while (count >= 0)
 	{
-		currect_line[count + 1] = old_line[count + 1];
+		currect_line[count] = old_line[count];
 		count--;
 	}
 	free(old_line);
@@ -86,7 +86,7 @@ static void	concatenate_parts(char **firstpar, char *buf)
 	free(old_parts);
 }
 
-char	*get_next_line_bonus(int fd)
+char	*get_next_line(int fd)
 {
 	static char	**parts;
 	char		*buf;
