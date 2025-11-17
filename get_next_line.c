@@ -6,12 +6,11 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 20:08:28 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/17 11:29:27 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/17 11:52:02 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static char	*get_currect_line(char **line)
 {
@@ -19,14 +18,12 @@ static char	*get_currect_line(char **line)
 	char	*old_line;
 	int		count;
 
-	// printf("[%s]", *line);
 	if (!line || !*line)
 		return (NULL);
 	old_line = *line;
 	count = 0;
 	while ((*line)[count] != '\n' && (*line)[count] != '\0')
 		count++;
-	// printf("[%d]", count);
 	if ((*line)[count] == '\0' || (*line)[count + 1] == '\0')
 		*line = NULL;
 	else
@@ -34,7 +31,6 @@ static char	*get_currect_line(char **line)
 	currect_line = malloc(count + 2);
 	if (!currect_line)
 		return (NULL);
-	// printf("[%s]", old_line);
 	currect_line[count + 1] = '\0';
 	while (count >= 0)
 	{
