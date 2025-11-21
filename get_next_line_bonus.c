@@ -6,40 +6,11 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:39 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/17 11:32:23 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/21 12:29:05 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-
-static char	**realloc_parts(char **parts_lines, int fd)
-{
-	char	**new_array;
-	int		i;
-	int		num_old_arr;
-
-	if (parts_lines != NULL)
-		num_old_arr = (int)(long)parts_lines[0];
-	else
-		num_old_arr = -1;
-	if (num_old_arr >= fd)
-		return (parts_lines);
-	new_array = malloc((fd + 1) * sizeof(char *));
-	if (!new_array)
-		return (NULL);
-	new_array[0] = (char *)(long)fd;
-	i = 1;
-	while (i <= num_old_arr)
-	{
-		new_array[i] = parts_lines[i];
-		i++;
-	}
-	while (i <= fd)
-		new_array[i++] = NULL;
-	if (parts_lines != NULL)
-		free(parts_lines);
-	return (new_array);
-}
 
 static char	*get_currect_line(char **line)
 {
@@ -59,7 +30,7 @@ static char	*get_currect_line(char **line)
 		*line = ft_strjoin(ft_strchr(*line, '\n') + 1, "");
 	currect_line = malloc(count + 2);
 	if (!currect_line)
-		return (NULL);
+		return (free(old_line), NULL);
 	currect_line[count + 1] = '\0';
 	while (count >= 0)
 	{
@@ -88,19 +59,16 @@ static void	concatenate_parts(char **firstpar, char *buf)
 
 char	*get_next_line(int fd)
 {
-	static char	**parts;
+	static char	*parts[OPEN_MAX];
 	char		*buf;
 	char		*tmp;
 	int			sizebites;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= OPEN_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
 	buf = malloc(BUFFER_SIZE + 1);
 	if (!buf)
 		return (NULL);
-	parts = realloc_parts(parts, fd);
-	if (!parts)
-		return (free(buf), NULL);
 	while (!(ft_strchr(parts[fd], '\n')))
 	{
 		sizebites = read(fd, buf, BUFFER_SIZE);
