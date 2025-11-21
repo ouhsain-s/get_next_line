@@ -6,7 +6,7 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/29 19:40:17 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/21 11:54:51 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/21 21:57:31 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef SIZE_MAX
-#  define SIZE_MAX 18446744073709551615
+#  define SIZE_MAX 18446744073709551614ULL
 # endif
 
 # ifndef BUFFER_SIZE
