@@ -6,17 +6,17 @@
 /*   By: souhsain <souhsain@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 21:31:52 by souhsain          #+#    #+#             */
-/*   Updated: 2025/11/21 20:43:31 by souhsain         ###   ########.fr       */
+/*   Updated: 2025/11/21 21:01:36 by souhsain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 
-# define OPEN_MAX 1024
+#define OPEN_MAX 1024
 
 # ifndef SIZE_MAX
-#  define SIZE_MAX 18446744073709551615
+#  define SIZE_MAX 18446744073709551615ULL
 # endif
 
 # ifndef BUFFER_SIZE
